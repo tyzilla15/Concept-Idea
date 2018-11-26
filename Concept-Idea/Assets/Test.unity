@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 1482213709}
   - component: {fileID: 1482213708}
   - component: {fileID: 1482213707}
+  - component: {fileID: 1482213711}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -259,6 +260,20 @@ Transform:
   m_Father: {fileID: 1608035290}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1482213711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1482213706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb14a779965be3d4a9d0bff48ecdd910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NodSpeed: -1
+  MaxUp: 1.047
+  MaxDown: -1.047
 --- !u!1 &1608035286
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,9 +282,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1608035290}
-  - component: {fileID: 1608035289}
   - component: {fileID: 1608035288}
   - component: {fileID: 1608035287}
+  - component: {fileID: 1608035289}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -302,7 +317,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 48
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1608035289
 MonoBehaviour:
@@ -315,9 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87081e6babd73fa4d80e46e0aa6ca17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  Speed: 5
   MyBody: {fileID: 1608035288}
-  JumpForce: 0
+  JumpForce: 4
+  FallTime: 0
+  TurnSpeed: 1
 --- !u!4 &1608035290
 Transform:
   m_ObjectHideFlags: 0
@@ -344,7 +361,7 @@ GameObject:
   - component: {fileID: 2027314930}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
