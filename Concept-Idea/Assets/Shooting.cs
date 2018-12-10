@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour {
 
     public float GunDamage;
     public GameObject MuzzleFlash;
+    public Image Redicle;
 
 
 	// Use this for initialization
@@ -13,6 +15,11 @@ public class Shooting : MonoBehaviour {
 		
 	}
 	
+    void redicle()
+    {
+        Redicle.color = Color.black;
+    }
+
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -31,6 +38,9 @@ public class Shooting : MonoBehaviour {
                 go1.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
                 go1.transform.parent = hit.collider.transform;
                 Destroy(go1, hit.collider.gameObject.GetComponent<EnemyHealth>().BloodLength);
+
+                Redicle.color = Color.white;
+                Invoke("redicle", .1f);
             }
         }
 	}
