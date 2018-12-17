@@ -18,7 +18,7 @@ public class Interact : MonoBehaviour {
     {
         RaycastHit hit;
         bool HitTarget = Physics.Raycast(Camera.main.transform.position, transform.forward, out hit, MaxDistance);
-        Debug.Log(HitTarget);
+
         if (HitTarget && hit.collider.tag == "Interactable")
         {
             Debug.Log("Hit");
