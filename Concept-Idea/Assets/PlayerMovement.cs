@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -10,12 +11,17 @@ public class PlayerMovement : MonoBehaviour {
     float Jump;
     public float FallTime;
     public float TurnSpeed;
-
+    public float MaxJumpforce;
     bool CanJump = true;
+    public Slider Jumpbar;
+    public float JumpChargeSpeed;
 
 	// Use this for initialization
 	void Start () {
         Jump = JumpForce;
+        Jumpbar.maxValue = MaxJumpforce;
+        Jumpbar.minValue = Jump;
+        Jumpbar.gameObject.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -49,12 +55,18 @@ public class PlayerMovement : MonoBehaviour {
         
         if (Input.GetKey(KeyCode.Space) && CanJump == true)
         {
-            Jump = Jump + Time.deltaTime * 2;
-            Debug.Log("Charging Jump, Current Force is: " + Jump);
+            Jumpbar.gameObject.SetActive(true);
+            Jump = Jump + Time.deltaTime * JumpChargeSpeed;
+            Jumpbar.value = Jump;
+            if (Jump > MaxJumpforce)
+            {
+                Jump = MaxJumpforce;
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && CanJump == true)
         {
+            Jumpbar.gameObject.SetActive(false);
             MyBody.velocity = new Vector3(MyBody.velocity.x, Jump, MyBody.velocity.z);
             CanJump = false;
             Jump = JumpForce;

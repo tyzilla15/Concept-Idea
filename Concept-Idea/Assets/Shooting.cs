@@ -24,10 +24,10 @@ public class Shooting : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject go = Instantiate(MuzzleFlash, transform.position, Quaternion.identity);
+            GameObject go = Instantiate(MuzzleFlash, transform.position, transform.rotation);
             Destroy(go, .2f);
             RaycastHit hit;
-            if (Physics.Raycast (Camera.main.transform.position, transform.forward, out hit))
+            if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out hit))
             {
                 hit.collider.gameObject.SendMessage("ApplyDamage", GunDamage);
                 GameObject go1 = Instantiate(

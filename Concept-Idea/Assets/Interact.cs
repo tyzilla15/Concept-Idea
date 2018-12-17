@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Interact : MonoBehaviour {
+public class Interact : MonoBehaviour
+{
 
     public float MaxDistance;
     public Text T;
+    GameObject HeldObject;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -21,16 +24,30 @@ public class Interact : MonoBehaviour {
 
         if (HitTarget && hit.collider.tag == "Interactable")
         {
-            Debug.Log("Hit");
             T.enabled = true;
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+           if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-
+                HeldObject = hit.collider.gameObject;
             }
+            
         }
         else
         {
             T.enabled = false;
         }
+        if (Input.GetKey(KeyCode.Mouse1) && HeldObject != null)
+            {
+                
+                HeldObject.transform.position = transform.position + transform.forward * 2;
+                HeldObject.GetComponent<Rigidbody>().useGravity = false;
+                T.enabled = false;
+
+            }
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            HeldObject.GetComponent<Rigidbody>().useGravity = true;
+            HeldObject = null;
+        }
     }
+
 }
