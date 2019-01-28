@@ -21,20 +21,41 @@ public class Interact : MonoBehaviour
     {
         RaycastHit hit;
         bool HitTarget = Physics.Raycast(Camera.main.transform.position, transform.forward, out hit, MaxDistance);
-
         if (HitTarget && hit.collider.tag == "Interactable")
         {
             T.enabled = true;
-           if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 HeldObject = hit.collider.gameObject;
             }
-            
+
         }
+
+        else if (HitTarget && hit.collider.tag == "Door")
+
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.gameObject.GetComponentInParent<Animator>().SetBool("Open",
+                    !hit.collider.gameObject.GetComponentInParent<Animator>().GetBool("Open"));
+            }
+        }
+
+        else if (HitTarget && hit.collider.tag == "Key")
+        {
+            if (Input.GetKey(KeyCode.E) && hit.collider.name == "Key1")
+            {
+                Inventory.Key1 = true;
+                Destroy(hit.collider.gameObject);
+            }
+   
+        }
+
         else
         {
             T.enabled = false;
         }
+
         if (Input.GetKey(KeyCode.Mouse1) && HeldObject != null)
             {
                 
@@ -43,6 +64,7 @@ public class Interact : MonoBehaviour
                 T.enabled = false;
 
             }
+
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             HeldObject.GetComponent<Rigidbody>().useGravity = true;
