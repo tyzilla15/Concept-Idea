@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
+    public float SprintSpeed;
 
     public float Speed;
     public Rigidbody MyBody;
@@ -41,6 +42,10 @@ public class PlayerMovement : MonoBehaviour {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         MyBody.velocity = transform.forward * Speed * z + transform.right * Speed * x + transform.up * MyBody.velocity.y;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            MyBody.velocity = transform.forward * SprintSpeed * Speed * z + transform.right * Speed * SprintSpeed * x + transform.up * MyBody.velocity.y;
+        }
     }
 
     void Turning()
