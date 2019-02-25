@@ -8,6 +8,8 @@ public class EnemyMovement : MonoBehaviour {
     public float Speed;
     Rigidbody Body;
     public float MaxDistance;
+    public float DamageDistance;
+    public int Damage;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +34,7 @@ public class EnemyMovement : MonoBehaviour {
     void DetectPlayer()
     {
         RaycastHit hit;
-        bool HitTarget = Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance);
+        bool HitTarget = Physics.Raycast(transform.position, Player.transform.position - transform.position, out hit, MaxDistance);
         if (HitTarget && hit.collider.tag == "Player")
         {
             if (GetComponent<EnemyHealth>().Health >= 0)
@@ -44,8 +46,22 @@ public class EnemyMovement : MonoBehaviour {
         }
     }
 
+    void PlayerDamage ()
+    {
+        RaycastHit hit;
+        bool HitTarget = Physics.Raycast(transform.position, Player.transform.position - transform.position, out hit, DamageDistance);
+        if (HitTarget && hit.collider.tag == "Player")
+        {
+            Player.SendMessage("ApplyDamage", Damage);
+        }
+    }
+
     // Update is called once per frame
     void Update () {
         DetectPlayer();
+        if (GetComponent<EnemyHealth>().Health > 0)
+        {
+            PlayerDamage();
+        } 
 	}
 }
