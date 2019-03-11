@@ -14,11 +14,22 @@ public class PlayerHealth : MonoBehaviour
     public GameObject Blood1;
     public GameObject Blood2;
 
+    float Alpha = 255;
+
 
     void Start()
     {
         Body = GetComponent<Rigidbody>();
         HealthBar.maxValue = Health;
+    }
+
+    private void Update()
+    {
+        if (Alpha > 62)
+        {
+            Blood1.GetComponent<Image>().color = new Color(1, 1, 1, Alpha/255);
+            Alpha = Alpha - Time.deltaTime * 10;
+        }
     }
 
     void ApplyDamage(float Damage)
@@ -32,6 +43,9 @@ public class PlayerHealth : MonoBehaviour
             if (Health == 2)
             {
                 Blood1.SetActive(true);
+                Blood1.GetComponent<Image>().color = new Color(255, 255, 255, 255);
+                Alpha = 255;
+
             }
             if (Health == 1)
             {

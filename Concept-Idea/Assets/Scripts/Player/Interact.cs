@@ -41,6 +41,16 @@ public class Interact : MonoBehaviour
             }
         }
 
+        else if (HitTarget && hit.collider.tag == "LockedDoor" && Inventory.Key1 == true)
+
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.gameObject.GetComponentInParent<Animator>().SetBool("Open",
+                    !hit.collider.gameObject.GetComponentInParent<Animator>().GetBool("Open"));
+            }
+        }
+
         else if (HitTarget && hit.collider.tag == "Key")
         {
             if (Input.GetKey(KeyCode.E) && hit.collider.name == "Key1")

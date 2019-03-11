@@ -10,6 +10,7 @@ public class EnemyMovement : MonoBehaviour {
     public float MaxDistance;
     public float DamageDistance;
     public int Damage;
+    public Animator Anim;
 
 	// Use this for initialization
 	void Start () {
@@ -41,8 +42,13 @@ public class EnemyMovement : MonoBehaviour {
             {
                 ChasePlayer();
                 Direction();
+                Anim.SetBool("Walk", true);
             }
 
+        }
+        else
+        {
+            Anim.SetBool("Walk", false);
         }
     }
 
